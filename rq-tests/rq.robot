@@ -10,12 +10,21 @@ ${URL}            https://www.bcbsnc.com/assets/shopper/public/quote
 *** Keywords ***
 Exists In Page
     [Arguments]    ${element}
-     Scroll Element Into View    ${element}
-     Element Should Be Visible    ${element}
+    Scroll Element Into View    ${element}
+    Element Should Be Visible    ${element}
+     
+Click The Link
+    [Arguments]    ${element}
+    Scroll Element Into View    ${element}
+    Click Link     ${element}
+     
+Click The Button
+    [Arguments]    ${element}
+    Scroll Element Into View    ${element}
+    Click Button    ${element}
     
 Submit Quote
-    Scroll Element Into View    xpath=//*[@id="rate-quote"]/div[1]/form/button
-    Click Button    xpath=//*[@id="rate-quote"]/div[1]/form/button
+    Click The Button    xpath=//*[@id="rate-quote"]/div[1]/form/button
     Sleep    2s
 
 Enter Date of Birth
@@ -135,13 +144,16 @@ Choose County
 
 
 E2E
+    Set Selenium Speed    0.5s
+    Maximize Browser Window
     Go To    ${URL}
     Enter Date of Birth
     Enter ZipCode
     Choose County
     Submit Quote
     Sleep    3s
-    Click Link    xpath=//a[text()='View My Quote']
+    Click The Link    xpath=//a[text()='View My Quote']
     Sleep    3s
-    Click Link    xpath=//a[text()='Select Plan']
+    Click The Link    xpath=//*[@id="rate-quote"]/div[@class="container ng-scope"]/div[@class="row"]/div[@class="col-9 print-full-width"]/div[15]/div/div/div[@class="plan-details-container"]/div[@class="cost"]/table/tbody/tr/td/p[@class="no-print"]/a[1]
+
 
